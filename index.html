@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>News Reader</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+<div class="app" id="app">
+  <main>
+    <div class="bar"> 
+      News Reader which uses public APIs
+    </div>
+    <section>
+      <aside>
+        <ul v-for="(item, index) in items">
+          <li :class="{ active: active === index }" @click="selectNews(index)" key="index">
+            {{ item.name }}
+            <span>{{ item.news.length }}</span>
+          </li>
+        </ul>
+      </aside>
+      <article>
+        <a target="_blank" class="article" v-for="article in getNews" :href="article.url || article.webUrl">
+          <header>
+            <span v-if="!article.webTitle">{{ article.title }}</span>
+            <span v-else>{{ article.webTitle }}</span>
+            <time>{{ formatDate(article.webPublicationDate || article.published_date) }}</time>
+          </header>
+
+          <p v-if="article.abstract">{{ article.abstract }}</p>
+        </a>
+      </article>
+    </section>
+  </main>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script>
+  <script  src="./script.js"></script>
+</body>
+</html>
